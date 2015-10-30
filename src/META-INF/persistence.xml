@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://java.sun.com/xml/ns/persistence"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://java.sun.com/xml/ns/persistence:persistence-unit 
+ http://java.sun.com/xml/ns/persistence/persistence_2_1.xsd">
+
+<persistence-unit name="bdd_sdzee_PU" transaction-type="JTA">
+    <jta-data-source>jdbc/bonecp_resource</jta-data-source>
+    <class>com.pixel.entities.Administrateur</class>
+    <class>com.pixel.entities.Article</class>
+    <class>com.pixel.entities.Client</class>
+    <class>com.pixel.entities.Commande</class>
+    <class>com.pixel.entities.Commentaire</class>
+    <class>com.pixel.entities.Historique</class>
+    <class>com.pixel.entities.Motif</class>
+    <class>com.pixel.entities.Panier</class>
+    <class>com.pixel.entities.Utilisateur</class> 
+</persistence-unit>
+
+</persistence>
