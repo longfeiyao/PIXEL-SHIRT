@@ -19,7 +19,7 @@ public class WebServlet extends HttpServlet {
 		
 		String message = "Voici un message de la part de la servlet";
 		request.setAttribute("message", message);
-		getServletContext().getRequestDispatcher("/WEB-INF/pixel.jsp").forward(request, response);
+		getServletContext().getRequestDispatcher("/WEB-INF/accueil.jsp").forward(request, response);
 	}
 
 }

@@ -4,7 +4,7 @@
  xsi:schemaLocation="http://java.sun.com/xml/ns/persistence:persistence-unit 
  http://java.sun.com/xml/ns/persistence/persistence_2_1.xsd">
 
-<persistence-unit name="bdd_sdzee_PU" transaction-type="JTA">
+<persistence-unit name="bdd_pixel_shirt" transaction-type="JTA">
     <jta-data-source>jdbc/bonecp_resource</jta-data-source>
     <class>com.pixel.entities.Administrateur</class>
     <class>com.pixel.entities.Article</class>
