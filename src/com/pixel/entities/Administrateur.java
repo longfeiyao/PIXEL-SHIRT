@@ -1,12 +1,15 @@
 package com.pixel.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Administrateur {
+public class Administrateur extends Utilisateur{
 	
-	@Id
-	private int Id;
+	public Administrateur(){
+		admin=true;
+	}
 	
 }
