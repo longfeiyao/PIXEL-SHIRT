@@ -5,8 +5,11 @@ E-COM PROJECT : School developping
 
 ###Placer les jar dans glassfish4/glassfish/domains/domain1/lib :
 -bonecp-0.8.0.RELEASE.jar
+
 -guava-13.0.1.jar
+
 -postgresql-8.1-404.jdbc3.jar
+
 -slf4j-api-1.6.6.jar
 
 ###Placer le fichier "bonecp-datasource.xml" dans glassfish4/bin/
