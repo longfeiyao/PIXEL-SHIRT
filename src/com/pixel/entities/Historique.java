@@ -8,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -21,12 +20,14 @@ public class Historique implements Serializable{
 
 	@Id
 	@GeneratedValue( strategy = GenerationType.IDENTITY )
-	private Long id;
+	private Long id_historique;
+	
 	@OneToOne
-	@MapsId
+	@JoinColumn( name = "id_commande", nullable=false)
 	private Commande commande;
+	
 	@ManyToOne(optional=false)
-    @JoinColumn( name = "id_client", nullable=false, updatable=false )
+    @JoinColumn( name = "id_user", nullable=false)
 	private Client client;
 	
 	public void setClient(Client client) {

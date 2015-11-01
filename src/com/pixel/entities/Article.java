@@ -1,14 +1,18 @@
 package com.pixel.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+
 
 @Entity
 public class Article implements Serializable{
@@ -19,7 +23,7 @@ public class Article implements Serializable{
 	private static final long serialVersionUID = -8779598285866996778L;
 	@Id
 	@GeneratedValue( strategy = GenerationType.IDENTITY )
-	private Long id;
+	private Long id_article;
 	private String couleur;
 	private String taille;
 	private String modele;
@@ -30,11 +34,36 @@ public class Article implements Serializable{
 	@JoinColumn(name="id_motif")
 	private Set<Motif> motifs;
 	
+	@OneToMany(cascade=CascadeType.ALL,mappedBy="article")
+	private List<Commentaire> commentaires;
+	
+	@ManyToMany(targetEntity=com.pixel.entities.Panier.class, mappedBy="articles")
+	private List<Panier> paniers;
+	
+	public Long getId_article() {
+		return id_article;
+	}
+	public void setId_article(Long id_article) {
+		this.id_article = id_article;
+	}
+	
+	public List<Panier> getPaniers() {
+		return paniers;
+	}
+	public void setPaniers(List<Panier> paniers) {
+		this.paniers = paniers;
+	}
+	public List<Commentaire> getCommentaires() {
+		return commentaires;
+	}
+	public void setCommentaires(List<Commentaire> commentaires) {
+		this.commentaires = commentaires;
+	}
 	public Long getId() {
-		return id;
+		return id_article;
 	}
 	public void setId(Long id) {
-		this.id = id;
+		this.id_article = id;
 	}
 	public Set<Motif> getMotifs() {
 		return motifs;

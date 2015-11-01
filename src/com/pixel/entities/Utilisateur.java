@@ -1,7 +1,6 @@
 package com.pixel.entities;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,22 +17,20 @@ public class Utilisateur implements Serializable{
 	private static final long serialVersionUID = 1172262412560356852L;
 	@Id
 	@GeneratedValue( strategy = GenerationType.IDENTITY )
-	private Long id;
+	private Long id_user;
 	private String nom;
 	private String prenom;
 	private String mail;
 	@Column( name = "mot_de_passe" )
 	private Long mdp;
 	protected boolean admin;
-	@Column( name = "date_inscription" )
-	private Timestamp dateInscription;
 	
 	public Long getId() {
-		return id;
+		return id_user;
 	}
 
 	public void setId(Long id) {
-		this.id = id;
+		this.id_user = id;
 	}
 
 	public boolean isAdmin() {
@@ -44,13 +41,6 @@ public class Utilisateur implements Serializable{
 		this.admin = admin;
 	}
 	
-	public Timestamp getDateInscription() {
-		return dateInscription;
-	}
-
-	public void setDateInscription(Timestamp dateInscription) {
-		this.dateInscription = dateInscription;
-	}
 
 	public void setMdp(Long mdp) {
 		this.mdp = mdp;
