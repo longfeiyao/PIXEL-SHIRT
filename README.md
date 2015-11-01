@@ -3,7 +3,7 @@ E-COM PROJECT : School developping
 
 ##Installation de BoneCp (Pool de connexion à la BD):
 
-###Placer les jar dans glassfish4/glassfish/domains/domain1/lib :
+###Placer les jar dans glassfish4/glassfish/domains/domain1/lib/ext/ :
 -bonecp-0.8.0.RELEASE.jar
 
 -guava-13.0.1.jar
