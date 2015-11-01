@@ -2,6 +2,7 @@ package com.pixel.servlets;
 
 import java.io.IOException;
 
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,6 +17,9 @@ public class AccueilServlet extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 2476044219517722019L;
 	private static final String VUE = "/WEB-INF/accueil.jsp";
+	
+	//@EJB
+	//private Panier panier;
 	
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{

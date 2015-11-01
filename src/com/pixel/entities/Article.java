@@ -1,13 +1,22 @@
 package com.pixel.entities;
 
+import java.io.Serializable;
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 
 @Entity
-public class Article {
+public class Article implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8779598285866996778L;
 	@Id
 	@GeneratedValue( strategy = GenerationType.IDENTITY )
 	private Long id;
@@ -17,6 +26,22 @@ public class Article {
 	private float prix;
 	private int quantite;
 	
+	@OneToMany(orphanRemoval=true)
+	@JoinColumn(name="id_motif")
+	private Set<Motif> motifs;
+	
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public Set<Motif> getMotifs() {
+		return motifs;
+	}
+	public void setMotifs(Set<Motif> motifs) {
+		this.motifs = motifs;
+	}
 	public String getCouleur() {
 		return couleur;
 	}

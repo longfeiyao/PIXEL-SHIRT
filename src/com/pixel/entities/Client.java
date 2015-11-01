@@ -1,41 +1,30 @@
 package com.pixel.entities;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
 
 @Entity
-public class Client extends Utilisateur{
+public class Client extends Utilisateur implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -447927080229839997L;
 	private Long age;
 	private String adresse;
 	private Long codePostal;
 	private String ville;
 	private String pays;
-	private List<Historique> historiques;
+	
+	@OneToOne(optional=false)
+	@JoinColumn(name = "id_panier", nullable=false)
+	private Panier panier;
 	
 	public Client(){
-		historiques=new ArrayList<>();
-		admin=false;
-	}
-	
-	public List<Historique> getHistoriques() {
-		return historiques;
-	}
-	
-	public void addHistorique(Historique historique){
-		if(!historiques.contains(historique)){
-			if(historique.getClient()!=null){
-				historique.getClient().remove(historique);
-			}
-			historique.setClient(this);
-			historiques.add(historique);
-		}
-	}
-	
-	public void remove(Historique historique) {
-		historiques.remove(historique);
 	}
 
 	public Long getAge() {

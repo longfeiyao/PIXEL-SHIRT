@@ -1,13 +1,17 @@
 package com.pixel.entities;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 @Entity
-public class Administrateur extends Utilisateur{
+public class Administrateur extends Utilisateur implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2368223807126389250L;
+
 	public Administrateur(){
 		admin=true;
 	}
