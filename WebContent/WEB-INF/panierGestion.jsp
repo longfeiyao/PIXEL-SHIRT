@@ -4,9 +4,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Gestion Panier</title>
+<link type="text/css" rel="stylesheet" href="/form.css" />
 </head>
 <body>
-
+<%@ include file="menu.jsp" %>
+<p>Recapitulatif des articles dans le panier + possibilité de valider</p>
 </body>
 </html>

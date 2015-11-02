@@ -9,6 +9,7 @@
 <link type="text/css" rel="stylesheet" href="form.css" />
 </head>
 <body>
+<%@ include file="menu.jsp" %>
 <form method="post" action="Inscription">
 
             <fieldset>

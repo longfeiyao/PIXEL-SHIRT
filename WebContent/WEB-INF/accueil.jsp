@@ -4,15 +4,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>pixel</title>
+<title>Pixel-Shirt</title>
+<link type="text/css" rel="stylesheet" href="/form.css" />
 </head>
 <body>
-	<p>Généré via une JSP page</p>
-	<p>
-		<% 
-		String attrib = (String) request.getAttribute("message");
-		out.println(attrib);
-		%>
-	</p>
+	 <%@ include file="menu.jsp" %>
+	 <p> un jour il y a aura le catalogue </p>
 </body>
 </html>

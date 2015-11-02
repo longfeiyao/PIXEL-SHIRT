@@ -1,6 +1,7 @@
 package com.pixel.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -40,7 +41,7 @@ public class Commande implements Serializable{
 	private Historique historique;
 	
 	@ManyToMany(cascade=CascadeType.PERSIST,targetEntity=com.pixel.entities.Article.class)
-	private List<Article> articles;
+	private List<Article> articles = new ArrayList<Article>();
 	
 	public List<Article> getArticles() {
 		return articles;

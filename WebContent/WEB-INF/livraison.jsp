@@ -4,9 +4,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Mode de livraison</title>
+<link type="text/css" rel="stylesheet" href="/form.css" />
 </head>
 <body>
-
+<%@ include file="menu.jsp" %>
+<p>form qui demande l'adresse du client</p>
 </body>
 </html>
