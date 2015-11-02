@@ -38,6 +38,7 @@ public class InscriptionForm extends Form{
 		    
 		    utilisateur.setPanier(panier);
 		    utilisateur.setDate(new DateTime());
+		    
 		    traiterEmail(email, utilisateur);
 		    traiterMotsDePasse(motDePasse, confirmation, utilisateur);
 		    try {
