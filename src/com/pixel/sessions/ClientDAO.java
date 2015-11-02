@@ -11,15 +11,15 @@ import com.pixel.exceptions.DAOException;
 
 @Stateless
 public class ClientDAO {
-	private static final String JPQL_SELECT_PAR_EMAIL = "SELECT u FROM Utilisateur u WHERE u.mail=:mail AND u.mdp=:mdp";
+	private static final String JPQL_SELECT_PAR_EMAIL = "SELECT u FROM Utilisateur u WHERE u.mail=:mail";
     private static final String PARAM_EMAIL = "mail";
-    private static final String PARAM_MDP = "mdp";
-
+   // private static final String PARAM_MDP = "mdp";
 
     // Injection du manager, qui s'occupe de la connexion avec la BDD
 
     @PersistenceContext( unitName = "bdd_pixel_shirt" )
     private EntityManager em;
+	//private String PAR_MDP= "AND u.mdp:=mdp";
 
     // Enregistrement d'un nouvel utilisateur
 
@@ -33,12 +33,10 @@ public class ClientDAO {
     }
     // Recherche d'un utilisateur à partir de son adresse email
 
-    public Utilisateur trouver( String email, Long mdp ) throws DAOException {
+    public Utilisateur trouver( String email) throws DAOException {
         Utilisateur utilisateur = null;
         Query requete = em.createQuery( JPQL_SELECT_PAR_EMAIL );
-        requete.setParameter( PARAM_EMAIL, email );
-        //Le mot de passe doit avoir subit l'encryptage pour comparaison dans la BD
-        requete.setParameter(PARAM_MDP, mdp);
+        requete.setParameter( PARAM_EMAIL, email);
         try {
             utilisateur = (Utilisateur) requete.getSingleResult();
         } catch ( NoResultException e ) {
@@ -50,6 +48,21 @@ public class ClientDAO {
         return utilisateur;
 
     }
+    
+   /* public Utilisateur trouver( String email, String mdp) throws DAOException {
+        Utilisateur utilisateur = null;
+        Query requete = em.createQuery( JPQL_SELECT_PAR_EMAIL + " " +PAR_MDP);
+        requete.setParameter( PARAM_EMAIL, email);
+        requete.setParameter(PARAM_MDP, mdp);
+        try {
+            utilisateur = (Utilisateur) requete.getSingleResult();
+        } catch ( NoResultException e ) {
+            return null;
+        } catch ( Exception e ) {
+            throw new DAOException( e );
+        }
+        return utilisateur;
+    }*/
     
     public void supprimer( Utilisateur user ) throws DAOException {
         try {

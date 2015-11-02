@@ -1,7 +1,6 @@
 package com.pixel.entities;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -10,6 +9,10 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+import org.eclipse.persistence.annotations.Convert;
+import org.joda.time.DateTime;
+
 
 @Entity
 public class Client extends Utilisateur implements Serializable{
@@ -23,8 +26,9 @@ public class Client extends Utilisateur implements Serializable{
 	private int codePostal;
 	private String ville;
 	private String pays;
-	@Column( name = "date_inscription" )
-	private Timestamp dateInscription;
+	@Column( name = "date_inscription", columnDefinition = "TIMESTAMP" )
+    @Convert( "dateTimeConverter" )
+	private DateTime date;
 	
 	@OneToOne(optional=false)
 	@JoinColumn(name = "id_panier", nullable=false)
@@ -82,13 +86,21 @@ public class Client extends Utilisateur implements Serializable{
 	public void setPays(String pays) {
 		this.pays = pays;
 	}
-	
-	public Timestamp getDateInscription() {
-		return dateInscription;
+
+	public DateTime getDate() {
+		return date;
 	}
 
-	public void setDateInscription(Timestamp dateInscription) {
-		this.dateInscription = dateInscription;
+	public void setDate(DateTime date) {
+		this.date = date;
+	}
+
+	public List<Commentaire> getCommentaires() {
+		return commentaires;
+	}
+
+	public void setCommentaires(List<Commentaire> commentaires) {
+		this.commentaires = commentaires;
 	}
 	
 }

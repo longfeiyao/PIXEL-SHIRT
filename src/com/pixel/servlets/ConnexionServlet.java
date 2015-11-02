@@ -10,27 +10,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.pixel.entities.Utilisateur;
-import com.pixel.form.InscriptionForm;
+import com.pixel.form.ConnexionForm;
 import com.pixel.sessions.ClientDAO;
 
 /**
- * Servlet implementation class Inscription
+ * Servlet implementation class Connexion
  */
-@WebServlet(urlPatterns = {"/Inscription"})
-public class Inscription extends HttpServlet {
-	
+@WebServlet("/Connexion")
+public class ConnexionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	public static final String ATT_USER = "utilisateur";
     public static final String ATT_FORM = "form";
-	private static final String VUE = "/WEB-INF/inscription.jsp";
+	private static final String VUE = "/WEB-INF/connexion.jsp";
 	
 	@EJB
-    private ClientDAO user;
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public Inscription() {
+    ClientDAO user;
+	
+    public ConnexionServlet() {
         super();
+        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -44,18 +42,12 @@ public class Inscription extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ConnexionForm connexion = new ConnexionForm(user);
+		Utilisateur utilisateur = connexion.connexionUtilisateur(request);
 		
-		InscriptionForm form = new InscriptionForm( user );
-        /* Traitement de la requête et récupération du bean en résultant */
-
-        Utilisateur utilisateur = form.inscrireUtilisateur( request );
-
-
-        /* Stockage du formulaire et du bean dans l'objet request */
-
-        request.setAttribute( ATT_FORM, form );
+		request.setAttribute( ATT_FORM, connexion );
         request.setAttribute( ATT_USER, utilisateur );
-        this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
+		this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
 	}
 
 }

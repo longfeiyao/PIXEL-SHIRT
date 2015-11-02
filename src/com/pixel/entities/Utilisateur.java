@@ -22,17 +22,17 @@ public class Utilisateur implements Serializable{
 	private String prenom;
 	private String mail;
 	@Column( name = "mot_de_passe" )
-	private Long mdp;
+	private String mdp;
 	protected boolean admin;
 	
-	public Long getId() {
+	public Long getId_user() {
 		return id_user;
 	}
 
-	public void setId(Long id) {
-		this.id_user = id;
+	public void setId_user(Long id_user) {
+		this.id_user = id_user;
 	}
-
+	
 	public boolean isAdmin() {
 		return admin;
 	}
@@ -41,9 +41,12 @@ public class Utilisateur implements Serializable{
 		this.admin = admin;
 	}
 	
-
-	public void setMdp(Long mdp) {
+	public void setMdp(String mdp) {
 		this.mdp = mdp;
+	}
+	
+	public String getMdp() {
+		return mdp;
 	}
 
 	public String getNom() {
@@ -65,12 +68,7 @@ public class Utilisateur implements Serializable{
 	public void setMail(String mail) {
 		this.mail = mail;
 	}
-	public long getMdp() {
-		return mdp;
-	}
-	public void setMdp(long mdp) {
-		this.mdp = mdp;
-	}
+	
 	
 	
 }
