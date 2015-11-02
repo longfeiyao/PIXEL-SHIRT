@@ -1,6 +1,7 @@
 package com.pixel.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -30,15 +31,21 @@ public class Client extends Utilisateur implements Serializable{
     @Convert( "dateTimeConverter" )
 	private DateTime date;
 	
-	@OneToOne(optional=false)
+	@OneToOne(cascade=CascadeType.ALL,optional=false)
 	@JoinColumn(name = "id_panier", nullable=false)
 	private Panier panier;
 	
-	@OneToMany(mappedBy="client")
+	@OneToMany(cascade=CascadeType.ALL,mappedBy="client")
 	private List<Historique> historiques;
 	
 	@OneToMany(cascade=CascadeType.ALL,mappedBy="client")
 	private List<Commentaire> commentaires;
+	
+	
+	public Client(){
+		historiques = new ArrayList<>();
+		commentaires = new ArrayList<>();
+	}
 	
 	public Panier getPanier() {
 		return panier;

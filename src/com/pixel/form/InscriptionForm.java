@@ -3,8 +3,12 @@ package com.pixel.form;
 import javax.servlet.http.HttpServletRequest;
 
 import org.jasypt.util.password.ConfigurablePasswordEncryptor;
+import org.joda.time.DateTime;
 
+import com.pixel.entities.Commande;
+import com.pixel.entities.Panier;
 import com.pixel.entities.Utilisateur;
+import com.pixel.entities.Client;
 import com.pixel.exceptions.FormValidationException;
 import com.pixel.sessions.ClientDAO;
 
@@ -21,8 +25,19 @@ public class InscriptionForm extends Form{
 		    String confirmation = getValeurChamp( request, CHAMP_CONF );
 		    String nom = getValeurChamp( request, CHAMP_NOM );
 		    String prenom = getValeurChamp(request, CHAMP_PRENOM);
-		    Utilisateur utilisateur = new Utilisateur();
 		    
+		    Client utilisateur = new Client();
+		    Panier panier = new Panier();
+		    
+		    Commande commande =new Commande();
+		    commande.setDate(new DateTime());
+		    commande.setValide(false);
+		    
+		    panier.setCommande(commande);
+		    panier.setClient(utilisateur);
+		    
+		    utilisateur.setPanier(panier);
+		    utilisateur.setDate(new DateTime());
 		    traiterEmail(email, utilisateur);
 		    traiterMotsDePasse(motDePasse, confirmation, utilisateur);
 		    try {

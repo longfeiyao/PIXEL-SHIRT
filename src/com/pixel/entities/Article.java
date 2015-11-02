@@ -10,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 
@@ -37,9 +36,6 @@ public class Article implements Serializable{
 	@OneToMany(cascade=CascadeType.ALL,mappedBy="article")
 	private List<Commentaire> commentaires;
 	
-	@ManyToMany(targetEntity=com.pixel.entities.Panier.class, mappedBy="articles")
-	private List<Panier> paniers;
-	
 	public Long getId_article() {
 		return id_article;
 	}
@@ -47,12 +43,6 @@ public class Article implements Serializable{
 		this.id_article = id_article;
 	}
 	
-	public List<Panier> getPaniers() {
-		return paniers;
-	}
-	public void setPaniers(List<Panier> paniers) {
-		this.paniers = paniers;
-	}
 	public List<Commentaire> getCommentaires() {
 		return commentaires;
 	}

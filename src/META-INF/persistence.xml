@@ -14,7 +14,11 @@
     <class>com.pixel.entities.Historique</class>
     <class>com.pixel.entities.Motif</class>
     <class>com.pixel.entities.Panier</class>
-    <class>com.pixel.entities.Utilisateur</class> 
+    <class>com.pixel.entities.Utilisateur</class>
 </persistence-unit>
 
+	<properties>
+  			<property name="eclipselink.ddl-generation" value="create-tables"/>
+	</properties>
+	
 </persistence>

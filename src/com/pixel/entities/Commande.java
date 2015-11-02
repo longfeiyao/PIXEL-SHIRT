@@ -1,6 +1,7 @@
 package com.pixel.entities;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -8,8 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
-
 
 import org.eclipse.persistence.annotations.Convert;
 import org.eclipse.persistence.annotations.Converter;
@@ -38,23 +39,23 @@ public class Commande implements Serializable{
 	@OneToOne(cascade=CascadeType.ALL,mappedBy="commande")
 	private Historique historique;
 	
-	@OneToOne(cascade=CascadeType.ALL,mappedBy="commande")
-	private Panier panier;
+	@ManyToMany(cascade=CascadeType.PERSIST,targetEntity=com.pixel.entities.Article.class)
+	private List<Article> articles;
 	
+	public List<Article> getArticles() {
+		return articles;
+	}
+
+	public void setArticles(List<Article> articles) {
+		this.articles = articles;
+	}
+
 	public Long getId_commande() {
 		return id_commande;
 	}
 
 	public void setId_commande(Long id_commande) {
 		this.id_commande = id_commande;
-	}
-
-	public Panier getPanier() {
-		return panier;
-	}
-
-	public void setPanier(Panier panier) {
-		this.panier = panier;
 	}
 
 	public Long getId() {
