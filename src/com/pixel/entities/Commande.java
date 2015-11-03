@@ -35,6 +35,7 @@ public class Commande implements Serializable{
     @Convert( "dateTimeConverter" )
 	private DateTime date;
 	
+	@Column(nullable=false)
 	private boolean valide;
 	
 	@OneToOne(cascade=CascadeType.ALL,mappedBy="commande")
