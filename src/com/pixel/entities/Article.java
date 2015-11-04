@@ -1,6 +1,8 @@
 package com.pixel.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -31,10 +33,10 @@ public class Article implements Serializable{
 	
 	@OneToMany(orphanRemoval=true)
 	@JoinColumn(name="id_motif")
-	private Set<Motif> motifs;
+	private Set<Motif> motifs = new HashSet<>();
 	
 	@OneToMany(cascade=CascadeType.ALL,mappedBy="article")
-	private List<Commentaire> commentaires;
+	private List<Commentaire> commentaires=new ArrayList<Commentaire>();
 	
 	public Long getId_article() {
 		return id_article;

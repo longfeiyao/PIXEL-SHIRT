@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(urlPatterns = { "/Accueil" })
 public class AccueilServlet extends HttpServlet {
 
+
 	/**
 	 * 
 	 */
@@ -19,9 +20,6 @@ public class AccueilServlet extends HttpServlet {
 	
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		
-		String message = "Voici un message de la part de la servlet";
-		request.setAttribute("message", message);
 		getServletContext().getRequestDispatcher(VUE).forward(request, response);
 	}
 

@@ -6,10 +6,13 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import com.pixel.exceptions.FormValidationException;
+import com.pixel.sessions.ArticleDAO;
 import com.pixel.sessions.ClientDAO;
 
 public class Form {
+	
 	protected ClientDAO user;
+	protected ArticleDAO articleDao;
 	protected String resultat;
 	protected Map<String, String> erreurs      = new HashMap<String, String>();
 	protected static final int TAILLE_MIN_MDP = 3;
@@ -22,6 +25,11 @@ public class Form {
     protected static final String CHAMP_CODE_POSTAL= "codePostal";
     protected static final String CHAMP_PAYS = "pays";
     protected static final String ALGO_CHIFFREMENT = "SHA-256";
+    protected static final String CHAMP_QUANT = "quantite";
+    protected static final String CHAMP_COULEUR = "couleur";
+    protected static final String CHAMP_TAILLE = "taille";
+    protected static final String CHAMP_MODEL = "modele";
+    protected static final String CHAMP_PRIX = "prix";
     
     protected void setErreur(String champ, String message) {
 		erreurs.put( champ, message );
