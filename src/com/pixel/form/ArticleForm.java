@@ -18,6 +18,7 @@ public class ArticleForm extends Form {
 	    int quantite = Integer.parseInt(getValeurChamp(request, CHAMP_QUANT));
 		
 		Article article = new Article();
+		
 		article.setCouleur(couleur);
 		article.setPrix(prix);
 		article.setQuantite(quantite);

@@ -20,6 +20,7 @@ public class AccueilServlet extends HttpServlet {
 	
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		
 		getServletContext().getRequestDispatcher(VUE).forward(request, response);
 	}
 
