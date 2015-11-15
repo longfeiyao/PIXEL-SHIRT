@@ -17,3 +17,7 @@
 .Tableau tr.legende {font-weight:bold}
 tr:nth-child(even) {background: #CCC}
 tr:nth-child(odd) {background: #FFF}
+
+input[type="number"] {
+	width:40px;
+}

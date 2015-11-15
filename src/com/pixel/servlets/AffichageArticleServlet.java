@@ -9,9 +9,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-
+import com.pixel.entities.Article;
 import com.pixel.sessions.ArticleDAO;
+import com.pixel.sessions.PanierBean;
 
 /**
  * Servlet implementation class AffichageArticleServlet
@@ -44,7 +46,24 @@ public class AffichageArticleServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		HttpSession session = request.getSession(true);
+		PanierBean panier = (PanierBean) session.getAttribute(AccueilServlet.KEY_SESSION_BEAN);
+		
+		String quantites = (String) request.getParameter("quantite");
+		int quantite = Integer.parseInt(quantites);
+		
+		String articleid = request.getParameter("article_id");
+		Article article = articleDao.findById(articleid);
+		
+		if(article.getQuantite()-quantite>=0){
+			article.setQuantite(article.getQuantite()-quantite);
+			articleDao.update(article);
+			panier.addArticle(article, quantite);
+		}
+		
+		List<?> articles = articleDao.findAll();
+		request.setAttribute( ATT_ART, articles );
+		getServletContext().getRequestDispatcher(VUE).forward(request, response);
 	}
 
 }

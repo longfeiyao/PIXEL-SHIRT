@@ -5,12 +5,11 @@ import javax.servlet.http.HttpServletRequest;
 import org.jasypt.util.password.ConfigurablePasswordEncryptor;
 import org.joda.time.DateTime;
 
-import com.pixel.entities.Commande;
-import com.pixel.entities.Panier;
 import com.pixel.entities.Utilisateur;
 import com.pixel.entities.Client;
 import com.pixel.exceptions.FormValidationException;
 import com.pixel.sessions.ClientDAO;
+import com.pixel.sessions.PanierBean;
 
 public class InscriptionForm extends Form{
 	
@@ -19,7 +18,7 @@ public class InscriptionForm extends Form{
 		this.user=user;
 	}
 
-	public Utilisateur inscrireUtilisateur(HttpServletRequest request) {
+	public Utilisateur inscrireUtilisateur(HttpServletRequest request, PanierBean panier) {
 		 	String email = getValeurChamp( request, CHAMP_EMAIL );
 		    String motDePasse = getValeurChamp( request, CHAMP_PASS );
 		    String confirmation = getValeurChamp( request, CHAMP_CONF );
@@ -27,16 +26,8 @@ public class InscriptionForm extends Form{
 		    String prenom = getValeurChamp(request, CHAMP_PRENOM);
 		    
 		    Client utilisateur = new Client();
-		    Panier panier = new Panier();
 		    
-		    Commande commande =new Commande();
-		    commande.setDate(new DateTime());
-		    commande.setValide(false);
-		    
-		    panier.setCommande(commande);
-		    panier.setClient(utilisateur);
-		    
-		    utilisateur.setPanier(panier);
+		    utilisateur.setPanier(panier.getPanier());
 		    utilisateur.setDate(new DateTime());
 		    
 		    traiterEmail(email, utilisateur);
@@ -55,6 +46,7 @@ public class InscriptionForm extends Form{
 		    utilisateur.setPrenom(prenom);
 		    if ( erreurs.isEmpty() ) {
 		    	user.creer(utilisateur);
+		    	panier.getPanier().setClient(utilisateur);
 		        resultat = "Succès de l'inscription.";
 		    } else {
 		        resultat = "Échec de l'inscription.";

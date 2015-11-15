@@ -75,7 +75,7 @@ public class Form {
 	        if ( !motDePasse.equals( confirmation ) ) {
 	            throw new FormValidationException( "Les mots de passe entrés sont différents, merci de les saisir à nouveau." );
 	        } else if ( motDePasse.length() < TAILLE_MIN_MDP ) {
-	            throw new FormValidationException( "Les mots de passe doivent contenir au moins 3 caractères." );
+	            throw new FormValidationException( "Les mots de passe doivent contenir au moins" + TAILLE_MIN_MDP + "caractères." );
 	        }
 	    } else {
 	        throw new FormValidationException( "Merci de saisir et confirmer votre mot de passe." );

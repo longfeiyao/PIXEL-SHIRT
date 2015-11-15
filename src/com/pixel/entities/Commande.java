@@ -30,10 +30,10 @@ public class Commande implements Serializable{
 	@GeneratedValue( strategy = GenerationType.IDENTITY )
 	private Long id_commande;
 	
-	@Column( columnDefinition = "TIMESTAMP" )
+	@Column( columnDefinition = "TIMESTAMP")
     @Converter( name = "dateTimeConverter", converterClass = JodaDateTimeConverter.class )
     @Convert( "dateTimeConverter" )
-	private DateTime date;
+	private DateTime date=new DateTime();
 	
 	@Column(nullable=false)
 	private boolean valide;
@@ -41,7 +41,7 @@ public class Commande implements Serializable{
 	@OneToOne(cascade=CascadeType.ALL,mappedBy="commande")
 	private Historique historique;
 	
-	@ManyToMany(cascade=CascadeType.PERSIST,targetEntity=com.pixel.entities.Article.class)
+	@ManyToMany(targetEntity=com.pixel.entities.Article.class)
 	private List<Article> articles = new ArrayList<Article>();
 	
 	public List<Article> getArticles() {

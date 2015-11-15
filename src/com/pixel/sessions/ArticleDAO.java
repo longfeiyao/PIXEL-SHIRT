@@ -54,5 +54,22 @@ public class ArticleDAO {
         }
 		return list;	
 	}
+	
+	public Article findById(String Id){
+		Article article = null;
+		Long id = Long.parseLong(Id);
+		try {
+			article = (Article) em.find(Article.class, id);
+		} catch ( NoResultException e ) {
+            return null;
+        } catch ( Exception e ) {
+            throw new DAOException( e );
+        }
+		return article;
+	}
+	
+	public Article update(Article article){
+		return em.merge(article);
+	}
 
 }

@@ -27,7 +27,12 @@
 	      <td><c:out value="${article.modele}" /></td>
 	      <td><c:out value="${article.prix} €" /></td>
 	      <td><c:out value="${article.quantite}" /></td>
-	      <td><input type="number" id="quantite" min=0 name="quantite" value="<c:out value=""/>"/></td>
+	      <td><input type="number" id="quantite" min=0 name="quantite" size="5" form="form${article.id_article}" value="1"/></td>
+	      <td> <form name="addarticleform${article.id_article}" method = "POST" action="Articles" id="form${article.id_article}">
+	      			<input type="hidden" name="article_id" value="${article.id_article}">
+	      			<input type="submit" value="Ajouter au panier" />
+	      	   </form>
+	      </td>
 	   </tr>
 	  </c:forEach>
 	</table>

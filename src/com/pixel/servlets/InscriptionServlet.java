@@ -8,10 +8,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.pixel.entities.Utilisateur;
 import com.pixel.form.InscriptionForm;
 import com.pixel.sessions.ClientDAO;
+import com.pixel.sessions.PanierBean;
 
 /**
  * Servlet implementation class Inscription
@@ -45,10 +47,13 @@ public class InscriptionServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		HttpSession session = request.getSession();
+		PanierBean panier = (PanierBean) session.getAttribute(AccueilServlet.KEY_SESSION_BEAN);
+		
 		InscriptionForm form = new InscriptionForm( user );
         /* Traitement de la requête et récupération du bean en résultant */
-
-        Utilisateur utilisateur = form.inscrireUtilisateur( request );
+		
+        Utilisateur utilisateur = form.inscrireUtilisateur( request, panier);
 
         /* Stockage du formulaire et du bean dans l'objet request */
 
