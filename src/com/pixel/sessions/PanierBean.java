@@ -20,6 +20,7 @@ import com.pixel.entities.Panier;
 public class PanierBean {
 	private Panier panier;
 	private float total=0;
+	
 	public Panier getPanier() {
 		return panier;
 	}
@@ -72,7 +73,9 @@ public class PanierBean {
     
     @Remove
     public void remove(){
-    	
+    	if(panier.getClient() != null){
+    		
+    	}
     }
 
 }
