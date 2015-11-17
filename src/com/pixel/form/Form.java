@@ -30,6 +30,7 @@ public class Form {
     protected static final String CHAMP_TAILLE = "taille";
     protected static final String CHAMP_MODEL = "modele";
     protected static final String CHAMP_PRIX = "prix";
+    protected static final String CHAMP_TAGS = "tags";
     
     protected void setErreur(String champ, String message) {
 		erreurs.put( champ, message );

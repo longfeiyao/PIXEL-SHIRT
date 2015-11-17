@@ -30,6 +30,7 @@ public class Article implements Serializable{
 	private String modele;
 	private float prix;
 	private int quantite;
+	private List<String> tags = new ArrayList<>();
 	
 	@OneToMany(orphanRemoval=true)
 	@JoinColumn(name="id_motif")
@@ -92,6 +93,12 @@ public class Article implements Serializable{
 	}
 	public void setQuantite(int quantite) {
 		this.quantite = quantite;
+	}
+	public List<String> getTags() {
+		return tags;
+	}
+	public void setTags(List<String> tags) {
+		this.tags = tags;
 	}
 
 }

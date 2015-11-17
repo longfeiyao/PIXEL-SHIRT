@@ -47,6 +47,11 @@
                 <input type="number" id="quantite" min=0 name="quantite" value="<c:out value="${article.quantite}"/>" size="20" maxlength="20" />
 				<span class="erreur">${form.erreurs['quantite']}</span>
                 <br/>
+                
+                <input type="text" id="tags" name="tags" value="<c:forEach var="tag" items="${lTags}">${tag} ' '</c:forEach>" size="20" maxlength="20" />
+				<span class="erreur">${form.erreurs['tags']}</span>
+                <br/>
+                
                 <input type="submit" value="Ajouter Article" class="sansLabel" />
 
                 <br/>
