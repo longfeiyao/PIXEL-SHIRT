@@ -4,8 +4,8 @@ E-COM PROJECT : School developping
 ## INITIALISATION DU PROJET :
 
 Dans un premier temps cloner votre projet dans le répertoire de votre choix. Vous pouvez utiliser les commandes graphiques de votre IDE Eclipse ou bien taper les lignes de commandes suivantes dans un terminal:
-	@> git init
-	@> git clone https://github.com/Vivien-Michel/PIXEL-SHIRT.git
+* @> git init
+* @> git clone https://github.com/Vivien-Michel/PIXEL-SHIRT.git
 
 ### Récupération des différentes archives nécessaire au projet :
 * Glassfish (serveur d'applications Open Source Java EE 5): glassfish-4.1.zip
@@ -16,13 +16,13 @@ Dans un premier temps cloner votre projet dans le répertoire de votre choix. Vo
 * jasypt (crypter les passwords) : jasypt-1.9.2.jar
 * joda (date timer) : joda-time-2.4.jar joda-time-2.4-javadoc.jar joda-time-2.4-sources.jar
 
-Extraire l'archive Glassfish4 puis placer les .jar précédemment sités dans le dossier "<votre_chemin>/glassfish4/glassfish/domains/domain1/lib/ext/". 
+Extraire l'archive Glassfish4 puis placer les .jar précédemment cités dans le dossier "<votre_chemin>/glassfish4/glassfish/domains/domain1/lib/ext/". 
 
 ### Projet Facets
 
 Les facettes définissent des caractéristiques et des exigences pour Java EE des projets et sont utilisées dans le cadre de la configuration pendant l'exécution.
 
-* Dans "Properties" (alt+Entrer) du projet PIXEL-SHIRT
+* Dans "Properties" (Alt+Entrer) du projet PIXEL-SHIRT
 * Sélectionner "projets facets"
 * Vérifier que vous avez les modules ou extensions suivantes :
 	* Dynamic Web Module v.3.1
@@ -34,7 +34,7 @@ Les facettes définissent des caractéristiques et des exigences pour Java EE de
 Télécharger programme en fonction de son OS via : http://www.enterprisedb.com/products-services-training/pgdownload
 
 #### Création BDD
-Lancer pgadmin3
+Lancer pgadmin3 :
 Nouveau -> DataBase (renseigner nom, password, encodage, owner)
 
 #### Fichier BoneCpp permettant de faire le lien entre BDD et le projet
@@ -58,26 +58,28 @@ Dans un terminal dans le repertoire "<votre_chemin>/glassfish4/bin"
 * Lancer le script : @> asadmin
 * Lancer la commande : @> add-resources bonecp-datasource.xml
 
-	voir liste : asadmin> list-jdbc-resources
-	delete ressources : asadmin> delete-jdbc-resource <ressource>
-	delete connection : asadmin> delete-jdbc-connection-pool
+	* voir liste : asadmin> list-jdbc-resources
+	* delete ressources : asadmin> delete-jdbc-resource <ressource>
+	* delete connection : asadmin> delete-jdbc-connection-pool
 
 ### Configurer et Démarrer le server Glassfish
 #### Configurer le server
-Ajouter dans : BuildPath -> Configure build path -> EAR librairies & Web App libraries.
-Pour importer Glassfish4 system, ajouter dans le fichier .classpath :
+* Ajouter dans : BuildPath -> Configure build path -> EAR librairies & Web App libraries.
+* Pour importer Glassfish4 system, ajouter dans le fichier .classpath :
+
 	<classpathentry kind="con" path="oracle.eclipse.tools.glassfish.lib.system">
 		<attributes>
 			<attribute name="owner.project.facets" value="jst.web"/>
 		</attributes>
 	</classpathentry>
-Dans Windows -> Server -> Runtime environnement
-Ajouter et renseigner les informations suivantes
+* Dans Windows -> Server -> Runtime environnement
+* Ajouter et renseigner les informations suivantes
+
 	name : glassfish4
 	server root : <votre_chemin>/glassfish4/glassfish
 	java Development Kit : java-8-oracle (Eclipse default)
-Choisir la perspective : Java EE -> Servers 
-Ajouter un server et choisir celui précedemment créer
+* Choisir la perspective : Java EE -> Servers 
+* Ajouter un server et choisir celui précedemment créer
 PuisPproperties -> Target runtime (choisir le type d'environnement pour server glassfish4 )
 #### Démarrer le server
 * Démarrer le server : bouton start
