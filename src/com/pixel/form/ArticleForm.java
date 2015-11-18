@@ -1,5 +1,8 @@
 package com.pixel.form;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import com.pixel.entities.Article;
@@ -12,11 +15,14 @@ public class ArticleForm extends Form {
 	}
 	
 	public Article addArticle(HttpServletRequest request){
+		List<String> lTag = new ArrayList<>();
+		
 		String taille = getValeurChamp( request, CHAMP_TAILLE );
 	    String modele = getValeurChamp( request, CHAMP_MODEL );
 	    String couleur = getValeurChamp( request, CHAMP_COULEUR );
 	    String prix = getValeurChamp(request, CHAMP_PRIX);
 	    String quantite = getValeurChamp(request, CHAMP_QUANT);
+	    String tags = getValeurChamp(request, CHAMP_TAGS);
 		
 		Article article = new Article();
 		try{
@@ -48,6 +54,12 @@ public class ArticleForm extends Form {
 			setErreur(CHAMP_MODEL, e.getMessage());
 		}
 		article.setModele(modele);
+		try{
+			lTag = traiterTags(tags); //validation + traitement
+		}catch(FormValidationException e){
+			setErreur(CHAMP_TAGS, e.getMessage());
+		}
+		article.setTags(lTag);
 		
 		if(erreurs.isEmpty()){
 			articleDao.creer(article);
@@ -56,6 +68,21 @@ public class ArticleForm extends Form {
 			resultat="Erreur lors de l'ajout";
 		}
 		return article;
+	}
+
+	private List<String> traiterTags(String tags) throws FormValidationException {
+		List<String> lTag = new ArrayList<>();
+		if(tags == null){
+			throw new FormValidationException("Veuillez renseigner ce champ");
+		}
+		else{
+			//Traitement du String
+			String[] s = tags.split(" ");
+			for(String tag : s){
+				lTag.add(tag);
+			}
+			return lTag;
+		}
 	}
 
 	private void validerModele(String modele) throws FormValidationException {

@@ -10,5 +10,6 @@
     <li><a href="/Pixel_Shirt/Panier/ModeLivraison">Là tu es à la première étape après validation du panier (choix de livraison)</a></li>
     <li><a href="/Pixel_Shirt/Admin/AjoutArticle">Pour ajouter un article dans la base</a></li>
 	<li><a href="/Pixel_Shirt/Articles">Pour afficher les articles</a></li>
+	<li><a href="/Pixel_Shirt/Recherche">Pour rechercher des articles en fonction des tags</a></li>
 </ul>
 </fieldset>
