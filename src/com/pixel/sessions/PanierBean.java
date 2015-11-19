@@ -2,7 +2,6 @@ package com.pixel.sessions;
 
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.ejb.Remove;
@@ -37,18 +36,18 @@ public class PanierBean {
     }
     
     public void addArticle(Article article, int quantite){
-    		boolean contain = false;
-			for(Iterator<Article> arti=articles.iterator() ; arti.hasNext();){
-    			Article nextArti = arti.next();
-				if(nextArti.getId_article().equals(article.getId_article())){
-					nextArti.setQuantite(nextArti.getQuantite()+quantite);
-					contain = true;
+  
+    		if(articles.contains(article)){
+    			for(Article art : articles){
+    				if(art.equals(article)){
+    					art.setQuantite(art.getQuantite()+quantite);
+    				}
     			}
+				
+			}else{
+				article.setQuantite(quantite);
+				articles.add(article);
 			}
-		if(!contain){
-			article.setQuantite(quantite);
-			articles.add(article);
-		}
 		total = total + article.getPrix() * quantite;
     	//sauvegarde des articles dans la BD mais pas encore écrit dans celle-ci
     	panier.getCommande().setArticles(articles);

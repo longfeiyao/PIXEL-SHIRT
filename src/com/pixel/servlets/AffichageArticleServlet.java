@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -48,7 +50,14 @@ public class AffichageArticleServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(true);
 		PanierBean panier = (PanierBean) session.getAttribute(AccueilServlet.KEY_SESSION_BEAN);
-		
+		if(panier == null){
+			try {
+				panier = (PanierBean) new InitialContext().lookup("java:global/Pixel_Shirt/PanierBean");
+				session.setAttribute(AccueilServlet.KEY_SESSION_BEAN, panier);
+			} catch (NamingException e) {
+				e.printStackTrace();
+			}
+		}
 		String quantites = (String) request.getParameter("quantite");
 		int quantite = Integer.parseInt(quantites);
 		

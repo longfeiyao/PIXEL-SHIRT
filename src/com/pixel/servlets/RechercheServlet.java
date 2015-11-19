@@ -1,6 +1,7 @@
 package com.pixel.servlets;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -9,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.pixel.entities.Article;
+import com.pixel.form.RechercheForm;
 import com.pixel.sessions.ArticleDAO;
 
 /**
@@ -18,7 +21,8 @@ import com.pixel.sessions.ArticleDAO;
 public class RechercheServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String VUE = "/WEB-INF/recherche.jsp";
-    
+	private static final String ATT_ART= "listeArticles";
+	
 	@EJB
 	private ArticleDAO articleDao;
 	
@@ -41,7 +45,14 @@ public class RechercheServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//articleDao.
+		RechercheForm form = new RechercheForm();
+		List<String> tags = form.getSearch(request);
+		List<Article> listArticle = null;
+		if(form.getErreurs().isEmpty()){
+			listArticle=articleDao.findByTag(tags);
+		}
+		
+		request.setAttribute( ATT_ART, listArticle );
 		getServletContext().getRequestDispatcher(VUE).forward(request, response);
 	}
 

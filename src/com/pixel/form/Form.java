@@ -1,6 +1,8 @@
 package com.pixel.form;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -81,6 +83,21 @@ public class Form {
 	    } else {
 	        throw new FormValidationException( "Merci de saisir et confirmer votre mot de passe." );
 	    }
+	}
+    
+    protected List<String> traiterTags(String tags) throws FormValidationException {
+		List<String> lTag = new ArrayList<>();
+		if(tags == null){
+			throw new FormValidationException("Veuillez renseigner ce champ");
+		}
+		else{
+			//Traitement du String
+			String[] s = tags.split(" ");
+			for(String tag : s){
+				lTag.add(tag);
+			}
+			return lTag;
+		}
 	}
 
 }

@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -30,6 +32,12 @@ public class Article implements Serializable{
 	private String modele;
 	private float prix;
 	private int quantite;
+	
+	@ElementCollection
+	@CollectionTable(
+			name="TAGS",
+			joinColumns=@JoinColumn(name="id_article")
+			)
 	private List<String> tags = new ArrayList<>();
 	
 	@OneToMany(orphanRemoval=true)
@@ -99,6 +107,20 @@ public class Article implements Serializable{
 	}
 	public void setTags(List<String> tags) {
 		this.tags = tags;
+	}
+	
+	@Override
+	public boolean equals (Object o){
+		if (o instanceof Article){
+			if(this.id_article!=null && ((Article) o).id_article!=null && this.id_article.equals(((Article) o).id_article)){
+				return true;
+			}else{
+				return false;
+			}
+		}else{
+			return false;
+		}
+		
 	}
 
 }

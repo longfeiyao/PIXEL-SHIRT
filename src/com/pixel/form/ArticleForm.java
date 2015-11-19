@@ -69,22 +69,7 @@ public class ArticleForm extends Form {
 		}
 		return article;
 	}
-
-	private List<String> traiterTags(String tags) throws FormValidationException {
-		List<String> lTag = new ArrayList<>();
-		if(tags == null){
-			throw new FormValidationException("Veuillez renseigner ce champ");
-		}
-		else{
-			//Traitement du String
-			String[] s = tags.split(" ");
-			for(String tag : s){
-				lTag.add(tag);
-			}
-			return lTag;
-		}
-	}
-
+	
 	private void validerModele(String modele) throws FormValidationException {
 		if(modele == null){
 			throw new FormValidationException("Veuillez renseigner ce champ");

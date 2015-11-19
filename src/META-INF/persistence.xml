@@ -16,7 +16,7 @@
     <class>com.pixel.entities.Panier</class>
     <class>com.pixel.entities.Utilisateur</class>
     <properties>
-  			<property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
+  			<property name="eclipselink.ddl-generation" value="create-tables"/>
 	</properties>
 </persistence-unit>
 

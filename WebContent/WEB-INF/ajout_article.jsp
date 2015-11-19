@@ -48,6 +48,7 @@
 				<span class="erreur">${form.erreurs['quantite']}</span>
                 <br/>
                 
+                 <label for="tags">Tags <span class="requis">*</span></label>
                 <input type="text" id="tags" name="tags" value="<c:forEach var="tag" items="${lTags}">${tag} ' '</c:forEach>" size="20" maxlength="20" />
 				<span class="erreur">${form.erreurs['tags']}</span>
                 <br/>
