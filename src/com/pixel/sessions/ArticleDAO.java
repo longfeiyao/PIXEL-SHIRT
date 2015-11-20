@@ -34,7 +34,7 @@ public class ArticleDAO {
 	
 	public List<?> findAll(){
 		List<?> list=null;
-		Query query = em.createQuery(JPQL_SELECT_BASE);
+		Query query = em.createQuery(JPQL_SELECT_BASE + " ORDER BY a.id_article");
 		try {
 			list= query.getResultList();
 		} catch ( NoResultException e ) {
@@ -81,9 +81,9 @@ public class ArticleDAO {
 			try {
 				articles= query.getResultList();
 				for(Article article : articles){
-					System.out.println("article id: " + article.getId());
+					//System.out.println("article id: " + article.getId());
 					Integer nbTag = articleMap.get(article);
-					System.out.println("article nbTag: " + nbTag);
+					//System.out.println("article nbTag: " + nbTag);
 					if(nbTag != null){
 						articleMap.put(article,nbTag+1);
 					}else{

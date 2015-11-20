@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.ejb.Remove;
 import javax.ejb.Stateful;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import com.pixel.entities.Article;
 import com.pixel.entities.Client;
@@ -19,6 +21,9 @@ import com.pixel.entities.Panier;
 public class PanierBean {
 	private Panier panier;
 	private float total=0;
+	
+	@PersistenceContext( unitName = "bdd_pixel_shirt" )
+    private EntityManager em;
 	
 	public Panier getPanier() {
 		return panier;
@@ -73,8 +78,17 @@ public class PanierBean {
     @Remove
     public void remove(){
     	if(panier.getClient() != null){
-    		
+    		em.merge(panier.getClient());
     	}
     }
+
+	public void fusion(Panier panier) {
+		
+		for(Article article : panier.getCommande().getArticles()){
+			addArticle(article, article.getQuantite());
+		}
+		panier.getCommande().setArticles(articles);
+		this.panier = panier;
+	}
 
 }

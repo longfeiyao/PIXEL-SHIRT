@@ -23,6 +23,7 @@ public class PanierServlet extends HttpServlet {
 	private static final String VUE = "/WEB-INF/panierGestion.jsp";
 	private static final String ATT_ART= "listeArticles";
 	private static final String ATT_TOT = "total";
+	private static final String ATT_CLIENT = "client";
 	
 	/**
      * @see HttpServlet#HttpServlet()
@@ -45,6 +46,7 @@ public class PanierServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
+		request.setAttribute(ATT_CLIENT , panier.getClient());
 		request.setAttribute(ATT_ART, panier.getArticles());
 		request.setAttribute(ATT_TOT, panier.getTotal());
 		
