@@ -34,7 +34,8 @@
 	      <td>
 	      	<form name="quantitearticleform${article.id_article}" method="POST" action="Gestion" id="form${article.id_article}">
 		      	<input type="hidden" name="article_id" value="${article.id_article}">
-		      	<input type="number" id="quantite" min="1" name="quantite" size="5" form="form2" value="${article.quantite}">
+		      	<input type="number" id="quantite" min="1" name="quantite" size="5" value="${article.quantite}">
+		      	<input type="submit" id="quantite2" name="quantite2" value="ok" />
 		    </form>
 	      </td>
 	      <td>

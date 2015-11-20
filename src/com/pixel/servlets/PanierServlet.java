@@ -72,12 +72,11 @@ public class PanierServlet extends HttpServlet {
 		
 		// Recupération du paramètre article_id dans la balise input de type "hidden" du fichier panierGestion.jsp
 		String article_id = request.getParameter(ATT_ART_ID);
-		
-		if (request.getParameter("quantite") != null) {
+		if (request.getParameter(ATT_Q) != null) {
 			// Recupération du paramètre quantite dans le fichier panierGestion.jsp
 			String q = request.getParameter(ATT_Q);
 			int quantite = Integer.parseInt(q);
-			
+			System.out.println("ICI");
 			// Update panier (ID,TOTAL,QUANTITE)
 			panier.update(article_id,quantite);
 

@@ -89,7 +89,6 @@ public class PanierBean {
 				art.setQuantite(quantite);
 			}
 			total = total + art.getPrix() * art.getQuantite();
-			System.out.println("/n total : "+ total);
 		}
 		panier.getCommande().setArticles(articles);
 	}
@@ -99,6 +98,7 @@ public class PanierBean {
 		Long id = Long.parseLong(article_id);
 		for(Article art : articles){
 			if(art.getId() == id){
+				total = total - art.getPrix()*art.getQuantite();
 				articles.remove(art);
 				break;
 			}
@@ -106,4 +106,11 @@ public class PanierBean {
 		panier.getCommande().setArticles(articles);
 	}
 
+	public void fusion(Panier panier) {
+		for(Article article : panier.getCommande().getArticles()){
+			addArticle(article, article.getQuantite());
+		}
+		panier.getCommande().setArticles(articles);
+		this.panier = panier;
+	}
 }
