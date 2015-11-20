@@ -19,7 +19,9 @@
 	      <td><c:out value="Taille" /></td>
 	      <td><c:out value="Modele" /></td>
 	      <td><c:out value="Prix" /></td>
+	      <td><c:out value="QuantiteTest" /></td>
 	      <td><c:out value="Quantite" /></td>
+	      <td><c:out value="Bouton" /></td>	      
 	   	</tr>
 	   <c:forEach var="article" items="${listeArticles}">
 	    <tr>
@@ -29,6 +31,18 @@
 	      <td><c:out value="${article.modele}" /></td>
 	      <td><c:out value="${article.prix} €" /></td>
 	      <td><c:out value="${article.quantite}" /></td>
+	      <td>
+	      	<form name="quantitearticleform${article.id_article}" method="POST" action="Gestion" id="form${article.id_article}">
+		      	<input type="hidden" name="article_id" value="${article.id_article}">
+		      	<input type="number" id="quantite" min="1" name="quantite" size="5" form="form2" value="${article.quantite}">
+		    </form>
+	      </td>
+	      <td>
+	      	<form name="supprimerarticleform${article.id_article}" method="POST" action="Gestion" id="form${article.id_article}">
+		      	<input type="hidden" name="article_id" value="${article.id_article}">
+		      	<input type="submit" id="supprimer" name="supprimer" value="Supprimer" class="sansLabel" />
+		    </form>
+	      </td>
 	   </tr>
 	  </c:forEach>
 	</table>

@@ -23,6 +23,9 @@ public class PanierServlet extends HttpServlet {
 	private static final String VUE = "/WEB-INF/panierGestion.jsp";
 	private static final String ATT_ART= "listeArticles";
 	private static final String ATT_TOT = "total";
+	private static final String ATT_Q = "quantite";
+	private static final String ATT_ART_ID = "article_id";
+
 	
 	/**
      * @see HttpServlet#HttpServlet()
@@ -55,8 +58,36 @@ public class PanierServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
+		HttpSession session = request.getSession();
+		PanierBean panier = (PanierBean) session.getAttribute(AccueilServlet.KEY_SESSION_BEAN);
+		if(panier == null){
+			try {
+				panier = (PanierBean) new InitialContext().lookup("java:global/Pixel_Shirt/PanierBean");
+				session.setAttribute(AccueilServlet.KEY_SESSION_BEAN, panier);
+			} catch (NamingException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		// Recupération du paramètre article_id dans la balise input de type "hidden" du fichier panierGestion.jsp
+		String article_id = request.getParameter(ATT_ART_ID);
+		
+		if (request.getParameter("quantite") != null) {
+			// Recupération du paramètre quantite dans le fichier panierGestion.jsp
+			String q = request.getParameter(ATT_Q);
+			int quantite = Integer.parseInt(q);
+			
+			// Update panier (ID,TOTAL,QUANTITE)
+			panier.update(article_id,quantite);
+
+	    } else if (request.getParameter("supprimer") != null) {
+	          panier.supprimer(article_id);
+	    }
+		
+		request.setAttribute(ATT_ART, panier.getArticles());
+		request.setAttribute(ATT_TOT, panier.getTotal());
+		getServletContext().getRequestDispatcher(VUE).forward(request, response);
+		
 	}
 
 }

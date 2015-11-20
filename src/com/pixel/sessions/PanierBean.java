@@ -77,4 +77,31 @@ public class PanierBean {
     	}
     }
 
+    // TODO modif champs envoie un DOPOST
+	// Condition vérifiée : article appartient à la liste articles
+    public void update(String article_id, int quantite) {
+		Long id = Long.parseLong(article_id);
+    	total = 0 ;
+		for(Article art : articles){
+			if(art.getId() == id){
+				art.setQuantite(quantite);
+			}
+			total = total + art.getPrix() * art.getQuantite();
+			System.out.println("/n total : "+ total);
+		}
+		panier.getCommande().setArticles(articles);
+	}
+    
+ // Condition vérifiée : article appartient à la liste articles
+	public void supprimer(String article_id) {
+		Long id = Long.parseLong(article_id);
+		for(Article art : articles){
+			if(art.getId() == id){
+				articles.remove(art);
+				break;
+			}
+		}
+		panier.getCommande().setArticles(articles);
+	}
+
 }
