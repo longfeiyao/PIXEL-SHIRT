@@ -3,15 +3,20 @@ package com.pixel.servlets;
 import java.io.IOException;
 
 import javax.ejb.EJB;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.pixel.entities.Client;
 import com.pixel.entities.Utilisateur;
 import com.pixel.form.ConnexionForm;
 import com.pixel.sessions.ClientDAO;
+import com.pixel.sessions.PanierBean;
 
 /**
  * Servlet implementation class Connexion
@@ -47,7 +52,24 @@ public class ConnexionServlet extends HttpServlet {
 		
 		request.setAttribute( ATT_FORM, connexion );
         request.setAttribute( ATT_USER, utilisateur );
-		this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
+        if(connexion.getErreurs().isEmpty()){
+        	HttpSession session = request.getSession(true);
+    		PanierBean panier = (PanierBean) session.getAttribute(AccueilServlet.KEY_SESSION_BEAN);
+        	if(panier !=null){
+        		panier.fusion(((Client) utilisateur).getPanier());
+        	}else{
+        		try {
+					panier = (PanierBean) new InitialContext().lookup("java:global/Pixel_Shirt/PanierBean");
+					panier.fusion(((Client) utilisateur).getPanier());
+				} catch (NamingException e) {
+					e.printStackTrace();
+				}
+				session.setAttribute(AccueilServlet.KEY_SESSION_BEAN, panier);
+        	}
+    		response.sendRedirect("Articles");
+        }else{
+        	this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
+		}
 	}
 
 }

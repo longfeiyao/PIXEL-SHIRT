@@ -11,7 +11,7 @@
 <body>
 <%@ include file="menu.jsp" %>
 <p>Recapitulatif des articles dans le panier + possibilité de valider</p>
-
+<p>Bonjour ${client.nom} ${client.prenom} voici le panier</p>
 <table class="Tableau">
 		 <tr class="legende">
 	      <td><c:out value="Id" /></td>

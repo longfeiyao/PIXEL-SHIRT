@@ -51,7 +51,6 @@ public class RechercheServlet extends HttpServlet {
 		if(form.getErreurs().isEmpty()){
 			listArticle=articleDao.findByTag(tags);
 		}
-		
 		request.setAttribute( ATT_ART, listArticle );
 		getServletContext().getRequestDispatcher(VUE).forward(request, response);
 	}

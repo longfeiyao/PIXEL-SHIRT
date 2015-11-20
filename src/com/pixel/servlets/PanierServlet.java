@@ -26,6 +26,7 @@ public class PanierServlet extends HttpServlet {
 	private static final String ATT_Q = "quantite";
 	private static final String ATT_ART_ID = "article_id";
 
+	private static final String ATT_CLIENT = "client";
 	
 	/**
      * @see HttpServlet#HttpServlet()

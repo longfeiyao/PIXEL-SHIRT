@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.ejb.Remove;
 import javax.ejb.Stateful;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import com.pixel.entities.Article;
 import com.pixel.entities.Client;

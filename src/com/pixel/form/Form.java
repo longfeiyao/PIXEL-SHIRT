@@ -1,5 +1,7 @@
 package com.pixel.form;
 
+import java.io.UnsupportedEncodingException;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -65,7 +67,12 @@ public class Form {
 	}
     
     protected static String getValeurChamp( HttpServletRequest request, String nomChamp ) {
-	    String valeur = request.getParameter( nomChamp );
+	    try {
+			request.setCharacterEncoding("UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+    	String valeur = request.getParameter( nomChamp );
 	    if ( valeur == null || valeur.trim().length() == 0 ) {
 	        return null;
 	    } else {
@@ -92,6 +99,8 @@ public class Form {
 		}
 		else{
 			//Traitement du String
+			tags = Normalizer.normalize(tags, Normalizer.Form.NFD).replaceAll("[\u0300-\u036F]", "");
+			tags = tags.toLowerCase();
 			String[] s = tags.split(" ");
 			for(String tag : s){
 				lTag.add(tag);
