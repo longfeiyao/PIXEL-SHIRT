@@ -1,8 +1,10 @@
 package com.pixel.sessions;
 
 
-import java.util.ArrayList;
-import java.util.List;
+import java.text.DecimalFormat;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.ejb.Remove;
 import javax.ejb.Stateful;
@@ -22,11 +24,14 @@ public class PanierBean {
 	private Panier panier;
 	private float total=0;
 	
+	@PersistenceContext(unitName= "bdd_pixel_shirt")
+	private EntityManager em;
+	
 	public Panier getPanier() {
 		return panier;
 	}
 
-	private List<Article> articles = new ArrayList<Article>();
+	private Map<Article,Integer> articles = new HashMap<Article,Integer>();
     /**
      * Default constructor. 
      */
@@ -38,18 +43,21 @@ public class PanierBean {
     }
     
     public void addArticle(Article article, int quantite){
-  
-    		if(articles.contains(article)){
-    			for(Article art : articles){
+    		boolean contains =false;
+    			for(Entry<Article, Integer> map : articles.entrySet()){
+    				Article art = map.getKey();
+    				Integer quant = map.getValue();
     				if(art.equals(article)){
-    					art.setQuantite(art.getQuantite()+quantite);
+    					articles.put(art, quant+quantite);
+    					contains = true;
+    					break;
     				}
     			}
 				
-			}else{
-				article.setQuantite(quantite);
-				articles.add(article);
+			if(!contains){
+				articles.put(article, quantite);
 			}
+    		
 		total = total + article.getPrix() * quantite;
     	//sauvegarde des articles dans la BD mais pas encore écrit dans celle-ci
     	panier.getCommande().setArticles(articles);
@@ -59,12 +67,17 @@ public class PanierBean {
     	return panier.getClient();
     }
     
-    public List<Article> getArticles(){
+    public Map<Article, Integer> getArticles(){
     	return panier.getCommande().getArticles();
     }
     
-    public float getTotal(){
-    	return total;
+    public String getTotal(){
+    	DecimalFormat df = new DecimalFormat("#,##0.00");
+    	return df.format(total);
+    }
+    
+    public int getSize(){
+    	return panier.getCommande().getArticles().size();
     }
     
     public void removeArticle(Article article, int quantite){
@@ -75,7 +88,7 @@ public class PanierBean {
     @Remove
     public void remove(){
     	if(panier.getClient() != null){
-    		
+    		em.merge(panier);
     	}
     }
 
@@ -83,12 +96,14 @@ public class PanierBean {
 	// Condition vérifiée : article appartient à la liste articles
     public void update(String article_id, int quantite) {
 		Long id = Long.parseLong(article_id);
-    	total = 0 ;
-		for(Article art : articles){
-			if(art.getId() == id){
-				art.setQuantite(quantite);
+		for(Entry<Article, Integer> map : panier.getCommande().getArticles().entrySet()){
+			Article art = map.getKey();
+			if(art.getId().equals(id)){
+				Integer quant = map.getValue();
+				Integer delta = quantite - quant; 
+				articles.put(art, quantite);
+				total = total + art.getPrix() * delta;
 			}
-			total = total + art.getPrix() * art.getQuantite();
 		}
 		panier.getCommande().setArticles(articles);
 	}
@@ -96,9 +111,11 @@ public class PanierBean {
  // Condition vérifiée : article appartient à la liste articles
 	public void supprimer(String article_id) {
 		Long id = Long.parseLong(article_id);
-		for(Article art : articles){
-			if(art.getId() == id){
-				total = total - art.getPrix()*art.getQuantite();
+		for(Entry<Article, Integer> map : articles.entrySet()){
+			Article art = map.getKey();
+			if(art.getId().equals(id)){
+				Integer quantite = map.getValue();
+				total = total - art.getPrix()*quantite;
 				articles.remove(art);
 				break;
 			}
@@ -107,8 +124,10 @@ public class PanierBean {
 	}
 
 	public void fusion(Panier panier) {
-		for(Article article : panier.getCommande().getArticles()){
-			addArticle(article, article.getQuantite());
+		for(Entry<Article, Integer> map : panier.getCommande().getArticles().entrySet()){
+			Article article = map.getKey();
+			Integer quantite = map.getValue();
+			addArticle(article,  quantite);
 		}
 		panier.getCommande().setArticles(articles);
 		this.panier = panier;

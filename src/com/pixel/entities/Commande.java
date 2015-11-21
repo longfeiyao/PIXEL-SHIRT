@@ -1,16 +1,18 @@
 package com.pixel.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.MapKeyClass;
+import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToOne;
 
 import org.eclipse.persistence.annotations.Convert;
@@ -41,14 +43,16 @@ public class Commande implements Serializable{
 	@OneToOne(cascade=CascadeType.ALL,mappedBy="commande")
 	private Historique historique;
 	
-	@ManyToMany(targetEntity=com.pixel.entities.Article.class)
-	private List<Article> articles = new ArrayList<Article>();
+	@ElementCollection
+	@MapKeyClass(com.pixel.entities.Article.class)
+	@MapKeyColumn(name="id_article")
+	private Map<Article,Integer> articles = new HashMap<Article,Integer>();
 	
-	public List<Article> getArticles() {
+	public Map<Article, Integer> getArticles() {
 		return articles;
 	}
 
-	public void setArticles(List<Article> articles) {
+	public void setArticles(Map<Article, Integer> articles) {
 		this.articles = articles;
 	}
 
