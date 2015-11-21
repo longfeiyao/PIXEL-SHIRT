@@ -49,6 +49,7 @@ public class PanierServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
+		request.setAttribute(ATT_CLIENT, panier.getClient());
 		request.setAttribute(ATT_ART, panier.getArticles());
 		request.setAttribute(ATT_TOT, panier.getTotal());
 		
@@ -76,14 +77,13 @@ public class PanierServlet extends HttpServlet {
 			// Recupération du paramètre quantite dans le fichier panierGestion.jsp
 			String q = request.getParameter(ATT_Q);
 			int quantite = Integer.parseInt(q);
-			System.out.println("ICI");
 			// Update panier (ID,TOTAL,QUANTITE)
 			panier.update(article_id,quantite);
 
 	    } else if (request.getParameter("supprimer") != null) {
 	          panier.supprimer(article_id);
 	    }
-		
+		request.setAttribute(ATT_CLIENT, panier.getClient());
 		request.setAttribute(ATT_ART, panier.getArticles());
 		request.setAttribute(ATT_TOT, panier.getTotal());
 		getServletContext().getRequestDispatcher(VUE).forward(request, response);

@@ -25,22 +25,22 @@
 	   	</tr>
 	   <c:forEach var="article" items="${listeArticles}">
 	    <tr>
-	      <td><c:out value="${article.id_article}" /></td>
-	      <td><c:out value="${article.couleur}" /></td>
-	      <td><c:out value="${article.taille}" /></td>
-	      <td><c:out value="${article.modele}" /></td>
-	      <td><c:out value="${article.prix} €" /></td>
-	      <td><c:out value="${article.quantite}" /></td>
+	      <td><c:out value="${article.key.id_article}" /></td>
+	      <td><c:out value="${article.key.couleur}" /></td>
+	      <td><c:out value="${article.key.taille}" /></td>
+	      <td><c:out value="${article.key.modele}" /></td>
+	      <td><c:out value="${article.key.prix} €" /></td>
+	      <td><c:out value="${article.value}" /></td>
 	      <td>
-	      	<form name="quantitearticleform${article.id_article}" method="POST" action="Gestion" id="form${article.id_article}">
-		      	<input type="hidden" name="article_id" value="${article.id_article}">
-		      	<input type="number" id="quantite" min="1" name="quantite" size="5" value="${article.quantite}">
+	      	<form name="quantitearticleform${article.key.id_article}" method="POST" action="Gestion" id="form${article.key.id_article}">
+		      	<input type="hidden" name="article_id" value="${article.key.id_article}">
+		      	<input type="number" id="quantite" min="1" name="quantite" size="5" value="${article.value}">
 		      	<input type="submit" id="quantite2" name="quantite2" value="ok" />
 		    </form>
 	      </td>
 	      <td>
-	      	<form name="supprimerarticleform${article.id_article}" method="POST" action="Gestion" id="form${article.id_article}">
-		      	<input type="hidden" name="article_id" value="${article.id_article}">
+	      	<form name="supprimerarticleform${article.key.id_article}" method="POST" action="Gestion" id="form${article.key.id_article}">
+		      	<input type="hidden" name="article_id" value="${article.key.id_article}">
 		      	<input type="submit" id="supprimer" name="supprimer" value="Supprimer" class="sansLabel" />
 		    </form>
 	      </td>

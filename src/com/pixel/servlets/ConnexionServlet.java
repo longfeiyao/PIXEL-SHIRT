@@ -33,7 +33,6 @@ public class ConnexionServlet extends HttpServlet {
 	
     public ConnexionServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -50,8 +49,6 @@ public class ConnexionServlet extends HttpServlet {
 		ConnexionForm connexion = new ConnexionForm(user);
 		Utilisateur utilisateur = connexion.connexionUtilisateur(request);
 		
-		request.setAttribute( ATT_FORM, connexion );
-        request.setAttribute( ATT_USER, utilisateur );
         if(connexion.getErreurs().isEmpty()){
         	HttpSession session = request.getSession(true);
     		PanierBean panier = (PanierBean) session.getAttribute(AccueilServlet.KEY_SESSION_BEAN);
@@ -68,6 +65,8 @@ public class ConnexionServlet extends HttpServlet {
         	}
     		response.sendRedirect("Articles");
         }else{
+        	request.setAttribute( ATT_FORM, connexion );
+            request.setAttribute( ATT_USER, utilisateur );
         	this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
 		}
 	}
