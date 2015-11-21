@@ -48,5 +48,9 @@
 	  </c:forEach>
 	</table>
 <p>Total : ${total} €</p>
+<form name="commanderarticleform${article.id_article}" method="POST" action="Connexion" id="form${article.id_article}">
+	<input type="submit" id="commander" name="commander" value="Commander" class="sansLabel" />
+</form>
+
 </body>
 </html>
