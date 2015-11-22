@@ -53,10 +53,13 @@
 								<form name="supprimercompteform" method="POST" action="Gestion" id="formSupprCompte">
 								<input type="submit" id="supprimerCompte" name="supprimerCompte" value="Supprimer son Compte" class="sansLabel" />
 								</form>
+								<form name="deconnexionform" method="POST" action="Gestion" id="formdeconnexion">
+								<input type="submit" id="deconnexion" name="deconnexion" value="Déconnexion" class="sansLabel" />
+								</form>
 								</c:when>
 							</c:choose>
 						</span>
-<form name="commanderarticleform${article.id_article}" method="POST" action="Connexion" id="form${article.id_article}">
+<form name="commanderarticleform" method="POST" action="/Pixel_Shirt/Connexion" id="formCommander">
 	<input type="submit" id="commander" name="commander" value="Commander" class="sansLabel" />
 </form>
 </body>

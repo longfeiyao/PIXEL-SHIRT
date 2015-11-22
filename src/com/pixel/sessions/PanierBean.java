@@ -27,6 +27,7 @@ public class PanierBean{
 	private Panier panier;
 	private float total=0;
 	private Map<Article,Integer> articles = new HashMap<Article,Integer>();
+	private boolean fusion = false;
 	
 	@PersistenceContext(unitName= "bdd_pixel_shirt")
 	private EntityManager em;
@@ -137,12 +138,15 @@ public class PanierBean{
 	}
 
 	public void fusion(Panier panier) {
-		for(Entry<Article, Integer> map : panier.getCommande().getArticles().entrySet()){
-			Article article = map.getKey();
-			Integer quantite = map.getValue();
-			addArticle(article,  quantite);
+		if(!fusion){
+			for(Entry<Article, Integer> map : panier.getCommande().getArticles().entrySet()){
+				Article article = map.getKey();
+				Integer quantite = map.getValue();
+				addArticle(article,  quantite);
+			}
+			panier.getCommande().setArticles(articles);
+			fusion=true;
 		}
-		panier.getCommande().setArticles(articles);
 		this.panier = panier;
 	}
 }

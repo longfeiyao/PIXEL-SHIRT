@@ -69,7 +69,9 @@ public class PanierServlet extends HttpServlet {
 
 	    } else if (request.getParameter("supprimer") != null) {
 	          panier.supprimer(article_id);
-	    } 
+	    } else if (request.getParameter("deconnexion") != null){
+	    	  panier.getPanier().setClient(null);
+	    }
 		if(request.getParameter("supprimerCompte") != null){
 	    	user.supprimer(panier.getClient());
 	    	panier.getPanier().setClient(null);
