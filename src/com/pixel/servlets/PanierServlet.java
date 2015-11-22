@@ -2,8 +2,7 @@ package com.pixel.servlets;
 
 import java.io.IOException;
 
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.pixel.sessions.ClientDAO;
 import com.pixel.sessions.PanierBean;
 
 /**
@@ -25,8 +25,10 @@ public class PanierServlet extends HttpServlet {
 	private static final String ATT_TOT = "total";
 	private static final String ATT_Q = "quantite";
 	private static final String ATT_ART_ID = "article_id";
-
 	private static final String ATT_CLIENT = "client";
+	
+	@EJB
+    ClientDAO user;
 	
 	/**
      * @see HttpServlet#HttpServlet()
@@ -41,14 +43,7 @@ public class PanierServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(true);
 		PanierBean panier = (PanierBean) session.getAttribute(AccueilServlet.KEY_SESSION_BEAN);
-		if(panier == null){
-			try {
-				panier = (PanierBean) new InitialContext().lookup("java:global/Pixel_Shirt/PanierBean");
-				session.setAttribute(AccueilServlet.KEY_SESSION_BEAN, panier);
-			} catch (NamingException e) {
-				e.printStackTrace();
-			}
-		}
+		
 		request.setAttribute(ATT_CLIENT, panier.getClient());
 		request.setAttribute(ATT_ART, panier.getArticles());
 		request.setAttribute(ATT_TOT, panier.getTotal());
@@ -62,14 +57,6 @@ public class PanierServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		PanierBean panier = (PanierBean) session.getAttribute(AccueilServlet.KEY_SESSION_BEAN);
-		if(panier == null){
-			try {
-				panier = (PanierBean) new InitialContext().lookup("java:global/Pixel_Shirt/PanierBean");
-				session.setAttribute(AccueilServlet.KEY_SESSION_BEAN, panier);
-			} catch (NamingException e) {
-				e.printStackTrace();
-			}
-		}
 		
 		// Recupération du paramètre article_id dans la balise input de type "hidden" du fichier panierGestion.jsp
 		String article_id = request.getParameter(ATT_ART_ID);
@@ -82,11 +69,19 @@ public class PanierServlet extends HttpServlet {
 
 	    } else if (request.getParameter("supprimer") != null) {
 	          panier.supprimer(article_id);
-	    }
-		request.setAttribute(ATT_CLIENT, panier.getClient());
-		request.setAttribute(ATT_ART, panier.getArticles());
-		request.setAttribute(ATT_TOT, panier.getTotal());
-		getServletContext().getRequestDispatcher(VUE).forward(request, response);
+	    } 
+		if(request.getParameter("supprimerCompte") != null){
+	    	user.supprimer(panier.getClient());
+	    	panier.getPanier().setClient(null);
+	    	panier.remove();
+	    	session.removeAttribute(AccueilServlet.KEY_SESSION_BEAN);
+	    	response.sendRedirect("/Pixel_Shirt/Articles");
+	    }else{
+	    	request.setAttribute(ATT_CLIENT, panier.getClient());
+			request.setAttribute(ATT_ART, panier.getArticles());
+			request.setAttribute(ATT_TOT, panier.getTotal());
+	    	getServletContext().getRequestDispatcher(VUE).forward(request, response);
+		}
 		
 	}
 

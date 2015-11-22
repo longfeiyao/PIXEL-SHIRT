@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.annotation.PreDestroy;
 import javax.ejb.Remove;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
@@ -15,14 +16,17 @@ import com.pixel.entities.Article;
 import com.pixel.entities.Client;
 import com.pixel.entities.Commande;
 import com.pixel.entities.Panier;
+import com.pixel.exceptions.DAOException;
 
 /**
  * Session Bean implementation class Panier
  */
 @Stateful
-public class PanierBean {
+public class PanierBean{
+	
 	private Panier panier;
 	private float total=0;
+	private Map<Article,Integer> articles = new HashMap<Article,Integer>();
 	
 	@PersistenceContext(unitName= "bdd_pixel_shirt")
 	private EntityManager em;
@@ -31,7 +35,7 @@ public class PanierBean {
 		return panier;
 	}
 
-	private Map<Article,Integer> articles = new HashMap<Article,Integer>();
+	
     /**
      * Default constructor. 
      */
@@ -87,11 +91,20 @@ public class PanierBean {
     
     @Remove
     public void remove(){
+    }
+    
+    @PreDestroy
+    public void update(){
+    	System.out.println("update du panier");
     	if(panier.getClient() != null){
-    		em.merge(panier);
+    		try {
+    			em.merge(panier);
+    		}catch ( Exception e ) {
+                throw new DAOException( e );
+            }
     	}
     }
-
+    
     // TODO modif champs envoie un DOPOST
 	// Condition vérifiée : article appartient à la liste articles
     public void update(String article_id, int quantite) {

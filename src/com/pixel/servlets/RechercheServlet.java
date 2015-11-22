@@ -31,7 +31,6 @@ public class RechercheServlet extends HttpServlet {
      */
     public RechercheServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**

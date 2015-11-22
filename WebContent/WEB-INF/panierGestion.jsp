@@ -47,6 +47,14 @@
 	   </tr>
 	  </c:forEach>
 	</table>
-<p>Total : ${total} €</p>
+<p>Total : ${total} €</p> <span>
+							<c:choose>
+								<c:when test="${not empty client}">
+								<form name="supprimercompteform" method="POST" action="Gestion" id="formSupprCompte">
+								<input type="submit" id="supprimerCompte" name="supprimerCompte" value="Supprimer son Compte" class="sansLabel" />
+								</form>
+								</c:when>
+							</c:choose>
+						</span>
 </body>
 </html>
