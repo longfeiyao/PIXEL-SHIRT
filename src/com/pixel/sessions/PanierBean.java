@@ -84,12 +84,7 @@ public class PanierBean{
     public int getSize(){
     	return panier.getCommande().getArticles().size();
     }
-    
-    public void removeArticle(Article article, int quantite){
-    	if(quantite >0)
-    		articles.remove(article);
-    }
-    
+
     @Remove
     public void remove(){
     }
@@ -110,7 +105,7 @@ public class PanierBean{
 	// Condition vérifiée : article appartient à la liste articles
     public void update(String article_id, int quantite) {
 		Long id = Long.parseLong(article_id);
-		for(Entry<Article, Integer> map : panier.getCommande().getArticles().entrySet()){
+		for(Entry<Article, Integer> map : articles.entrySet()){
 			Article art = map.getKey();
 			if(art.getId().equals(id)){
 				Integer quant = map.getValue();
@@ -144,9 +139,9 @@ public class PanierBean{
 				Integer quantite = map.getValue();
 				addArticle(article,  quantite);
 			}
-			panier.getCommande().setArticles(articles);
 			fusion=true;
 		}
+		panier.getCommande().setArticles(articles);
 		this.panier = panier;
 	}
 }
