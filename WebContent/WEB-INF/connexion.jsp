@@ -10,31 +10,33 @@
 </head>
 <body>
 <%@ include file="menu.jsp" %>
-<form method="post" action="Connexion">
+<form method="POST" action="Connexion">
+	<fieldset>
+		<legend>Connexion</legend>
+		<p>Vous pouvez vous connecter via ce formulaire.</p>
 
-            <fieldset>
+        <label for="email">Adresse email <span class="requis">*</span></label>
+        <input type="email" id="email" name="email" value="<c:out value="${param.email}"/>" size="20" maxlength="60" />
+		<span class="erreur">${form.erreurs['email']}</span>
+        <br/>
 
-                <legend>Connexion</legend>
+        <label for="motdepasse">Mot de passe <span class="requis">*</span></label>
 
-                <p>Vous pouvez vous connecter via ce formulaire.</p>
-
-
-                <label for="email">Adresse email <span class="requis">*</span></label>
-                <input type="email" id="email" name="email" value="<c:out value="${param.email}"/>" size="20" maxlength="60" />
-				<span class="erreur">${form.erreurs['email']}</span>
-                <br/>
-
-
-                <label for="motdepasse">Mot de passe <span class="requis">*</span></label>
-
-                <input type="password" id="motdepasse" name="motdepasse" value="" size="20" maxlength="20" />
-				<span class="erreur">${form.erreurs['motdepasse']}</span>
-                <br/>
+        <input type="password" id="motdepasse" name="motdepasse" value="" size="20" maxlength="20" />
+		<span class="erreur">${form.erreurs['motdepasse']}</span>
+        <br/>
                 
-                 <input type="submit" value="Connexion" class="sansLabel" />
-                <br/>
-                 <p class="${empty erreurs ? 'succes' : 'erreur'}">${form.resultat}</p>
-              </fieldset>
+        <input type="submit" value="Connexion" class="sansLabel" />
+        <br/>
+        <p class="${empty erreurs ? 'succes' : 'erreur'}">${form.resultat}</p>
+     </fieldset>
 </form>
+<form method="POST" action="Inscription">
+	<fieldset>
+	<legend>Nouveau client</legend>
+		<input type="submit" id="inscription" name="inscription" value="Inscription" />
+	</fieldset>
+</form>
+
 </body>
 </html>
