@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,7 @@ import com.pixel.sessions.ArticleDAO;
  * Servlet implementation class AjoutArticle
  */
 @WebServlet("/Admin/AjoutArticle")
+@MultipartConfig(location="/tmp", fileSizeThreshold = 1024 *1024, maxFileSize = 1024 * 1024 *5, maxRequestSize = 1024 * 1024 * 5 *5)
 public class AjoutArticleServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	public static final String ATT_ARTICLE = "article";

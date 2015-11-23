@@ -46,6 +46,7 @@ public class InscriptionForm extends Form{
 		    utilisateur.setPrenom(prenom);
 		    if ( erreurs.isEmpty() ) {
 		    	panier.getPanier().setClient(utilisateur);
+		    	panier.setFusion(true);
 		    	user.creer(utilisateur);
 		        resultat = "Succès de l'inscription.";
 		    } else {

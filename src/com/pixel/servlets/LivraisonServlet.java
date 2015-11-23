@@ -20,7 +20,6 @@ public class LivraisonServlet extends HttpServlet {
      */
     public LivraisonServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**

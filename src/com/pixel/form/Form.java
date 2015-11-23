@@ -9,6 +9,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.pixel.entities.Article;
 import com.pixel.exceptions.FormValidationException;
 import com.pixel.sessions.ArticleDAO;
 import com.pixel.sessions.ClientDAO;
@@ -35,6 +36,8 @@ public class Form {
     protected static final String CHAMP_MODEL = "modele";
     protected static final String CHAMP_PRIX = "prix";
     protected static final String CHAMP_TAGS = "tags";
+    protected static final String CHAMP_IMAGE = "image";
+    protected static final String CHAMP_ART_ID = "article_id";
     
     protected void setErreur(String champ, String message) {
 		erreurs.put( champ, message );
@@ -106,6 +109,19 @@ public class Form {
 				lTag.add(tag);
 			}
 			return lTag;
+		}
+	}
+    
+    protected void validerQuantite(Article article, String quantite) throws FormValidationException{
+		if(quantite != null){
+			try{
+				int quantitei = Integer.parseInt(quantite);
+				article.setQuantite(quantitei);
+			}catch(NumberFormatException e){
+				throw new FormValidationException("Ceci n'est pas un nombre valide");
+			}
+		}else{
+			throw new FormValidationException("Veuillez renseigner ce champ");
 		}
 	}
 

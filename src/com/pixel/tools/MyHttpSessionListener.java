@@ -22,15 +22,17 @@ public class MyHttpSessionListener implements HttpSessionListener{
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
-		System.out.println("session crée");
+		System.out.println("session créée");
 	}
 
 	@Override
 	public void sessionDestroyed(HttpSessionEvent event) {
 		System.out.println("session destroy");
 		PanierBean panier=(PanierBean) event.getSession().getAttribute(AccueilServlet.KEY_SESSION_BEAN);
-		panier.update();
-		panier.remove();
+		if(panier != null){
+			panier.update();
+			panier.remove();
+		}
 	}
 
 }

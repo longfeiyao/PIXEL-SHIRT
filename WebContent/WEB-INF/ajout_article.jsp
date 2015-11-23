@@ -10,7 +10,7 @@
 </head>
 <body>
 <%@ include file="menu.jsp" %>
-<form method="post" action="AjoutArticle">
+<form method="post" action="AjoutArticle" enctype="multipart/form-data">
 
             <fieldset>
 
@@ -49,8 +49,13 @@
                 <br/>
                 
                  <label for="tags">Tags <span class="requis">*</span></label>
-                <input type="text" id="tags" name="tags" value="<c:forEach var="tag" items="${lTags}">${tag} ' '</c:forEach>" size="20" maxlength="20" />
+                <input type="text" id="tags" name="tags" value="<c:out value="${lTags}"></c:out>" size="20" maxlength="20" />
 				<span class="erreur">${form.erreurs['tags']}</span>
+                <br/>
+                
+                <label for="image">Emplacement de l'image <span class="requis">*</span></label>
+                <input type="file" id="image" name="image"/>
+				<span class="erreur">${form.erreurs['image']}</span>
                 <br/>
                 
                 <input type="submit" value="Ajouter Article" class="sansLabel" />

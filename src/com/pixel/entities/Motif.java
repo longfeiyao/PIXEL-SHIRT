@@ -18,6 +18,7 @@ public class Motif implements Serializable{
 	@Id
 	@GeneratedValue( strategy = GenerationType.IDENTITY )
 	private Long id_motif;
+	
 	private Blob image;
 	
 	public Blob getImage() {

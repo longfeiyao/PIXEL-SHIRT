@@ -1,19 +1,26 @@
 package com.pixel.entities;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.imageio.ImageIO;
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 
 
@@ -33,6 +40,10 @@ public class Article implements Serializable{
 	private float prix;
 	private int quantite;
 	
+	@Lob
+	@Basic(fetch = FetchType.LAZY)
+	private byte[] image;
+	
 	@ElementCollection
 	@CollectionTable(
 			name="TAGS",
@@ -47,6 +58,21 @@ public class Article implements Serializable{
 	@OneToMany(cascade=CascadeType.ALL,mappedBy="article")
 	private List<Commentaire> commentaires=new ArrayList<Commentaire>();
 	
+	public byte[] getImage() {
+		return image;
+	}
+	public void setImage(BufferedImage bufferedimage){
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		try {
+			ImageIO.write(bufferedimage, "jpeg", baos);
+			baos.flush();
+			this.image = baos.toByteArray();
+			baos.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
 	public Long getId_article() {
 		return id_article;
 	}

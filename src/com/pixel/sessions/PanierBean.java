@@ -76,6 +76,10 @@ public class PanierBean{
     	return panier.getCommande().getArticles();
     }
     
+    public void setFusion(boolean fusion){
+    	this.fusion=fusion;
+    }
+    
     public String getTotal(){
     	DecimalFormat df = new DecimalFormat("#,##0.00");
     	return df.format(total);
@@ -91,9 +95,9 @@ public class PanierBean{
     
     @PreDestroy
     public void update(){
-    	System.out.println("update du panier");
     	if(panier.getClient() != null){
     		try {
+    			System.out.println("update du panier");
     			em.merge(panier);
     		}catch ( Exception e ) {
                 throw new DAOException( e );
