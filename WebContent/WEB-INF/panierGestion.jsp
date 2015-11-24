@@ -47,6 +47,8 @@
 	   </tr>
 	  </c:forEach>
 	</table>
+<p>Total : ${total} €</p>
+<form name="commanderarticleform" method="POST" action="Commander" id="form">
 <p>Total : ${sessionScope.panier.total} €</p> <span>
 							<c:choose>
 								<c:when test="${not empty sessionScope.panier.client}">
@@ -61,6 +63,9 @@
 						</span>
 <form name="commanderarticleform" method="POST" action="/Pixel_Shirt/Connexion" id="formCommander">
 	<input type="submit" id="commander" name="commander" value="Commander" class="sansLabel" />
+</form>
+<form name="transactinoarticleform" method="POST" action="/Pixel_Shirt/Transaction" id="form">
+	<input type="submit" id="transaction" name="transaction" value="Transaction" class="sansLabel" />
 </form>
 </body>
 </html>

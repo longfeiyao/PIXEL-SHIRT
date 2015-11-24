@@ -31,12 +31,15 @@
         <p class="${empty erreurs ? 'succes' : 'erreur'}">${form.resultat}</p>
      </fieldset>
 </form>
+<<<<<<< HEAD
+=======
 <form method="GET" action="Inscription">
 	<fieldset>
 	<legend>Nouveau client</legend>
 		<input type="submit" id="inscription" name="inscription" value="Inscription" />
 	</fieldset>
 </form>
+>>>>>>> branch 'master' of https://github.com/Vivien-Michel/PIXEL-SHIRT.git
 
 </body>
 </html>
